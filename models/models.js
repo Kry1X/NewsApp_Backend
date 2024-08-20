@@ -8,16 +8,16 @@ const User = sequelize.define('user', {
     role: {type: DataTypes.STRING, defaultValue: "USER"}
 })
 
-const Publisher = sequelize.define('publisher', {
-    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    name: {type: DataTypes.STRING, allowNull: false, unique: true},
-    link: {type: DataTypes.STRING, allowNull: false, unique: true}
-})
+// const Publisher = sequelize.define('publisher', {
+//     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+//     name: {type: DataTypes.STRING, allowNull: false, unique: true},
+//     link: {type: DataTypes.STRING, allowNull: false, unique: true}
+// })
 
-User.hasMany(Publisher)
-Publisher.belongsTo(User)
+// User.hasMany(Publisher)
+// Publisher.belongsTo(User)
 
 module.exports = {
     User,
-    Publisher
+    // Publisher
 }

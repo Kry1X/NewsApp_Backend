@@ -1,4 +1,4 @@
-const {User, Publisher} = require('../models/models')
+const {User} = require('../models/models')
 
 class UserController {
     async registration(req, res){
