@@ -4,6 +4,24 @@ const { query } = require('../db');
 const newsapi_key = process.env.NEWSAPI
 const newsapi = new NewsApi(newsapi_key);
 
+function filterResponse(data) {
+    var news = []
+    for(let i = 0; i < 100; i++) {
+        let elem = data['articles'][i]
+        news.push({
+                source: elem["source"]["name"],
+                title: elem["title"],
+                description: elem["description"],
+                url: elem["url"],
+                imageUrl: elem["urlToImage"],
+                publishedAt: elem["publishedAt"],
+                content: elem["content"]
+        })
+    }
+    return news;
+    // {source: "", title: "", description: "", content: "", url: "", imageUrl: "", publishedAt: "", content; ""}
+};
+
 class NewsController {
     async getByQ(req, res) {
         const {query, language, sortby} = req.body;
@@ -16,8 +34,8 @@ class NewsController {
             sortBy: sortby || 'publishedAt',// relevancy, popularity, >publishedAt
             // searchIn: ''
         }).then(response => {
-            return res.json(response);
-            {source: "", title: "", description: "", content: "", url: "", imageUrl: "", publishedAt: "", content; ""}
+            const data = filterResponse(response);
+            return res.json(data);
         });
         
     }
