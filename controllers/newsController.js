@@ -24,20 +24,22 @@ function filterResponse(data) {
 
 class NewsController {
     async getByQ(req, res) {
-        const {query, language, sortby} = req.body;
-        var news = [];
-        newsapi.v2.everything({
-            q: query,
-            language: language, // ru or us, USER
-            from: Date.now(),
-            to: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
-            sortBy: sortby || 'publishedAt',// relevancy, popularity, >publishedAt
-            // searchIn: ''
-        }).then(response => {
-            const data = filterResponse(response);
-            return res.json(data);
-        });
-        
+        try {
+            const {query, language, sortby} = req.body;
+            newsapi.v2.everything({
+                q: query,
+                language: language, // ru or us, USER
+                from: Date.now(),
+                to: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
+                sortBy: sortby || 'publishedAt',// relevancy, popularity, >publishedAt
+                // searchIn: ''
+            }).then(response => {
+                const data = filterResponse(response);
+                return res.json(data);
+            });
+        } catch (e) {
+            res.json(e)
+        }
     }
 
     async getBySoruce(req, res) { // Рещить что-то с sources; Пока что не тестировать !!!
